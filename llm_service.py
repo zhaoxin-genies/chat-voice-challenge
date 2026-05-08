@@ -1,12 +1,9 @@
-import asyncio
+from abc import ABC, abstractmethod
 
 
-class LLMService:
-    """
-    Stubbed LLM service -- returns mock responses.
-    In production, this would call OpenAI, Anthropic, etc.
-    """
+class LLMService(ABC):
+    """Base class for LLM providers."""
 
-    async def generate(self, prompt: str, provider: str = "openai") -> str:
-        await asyncio.sleep(0.05)  # Simulate API latency
-        return f"LLM response to: {prompt[:50]}"
+    @abstractmethod
+    def generate(self, prompt: str) -> str:
+        pass

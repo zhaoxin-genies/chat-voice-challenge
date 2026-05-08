@@ -1,6 +1,6 @@
 PYTHON = ./venv/bin/python
 
-.PHONY: install test dev mock-elevenlabs curl-test
+.PHONY: install test dev mock-elevenlabs mock-llm curl-test
 
 install:
 	$(PYTHON) -m pip install -r requirements.txt
@@ -10,6 +10,9 @@ test:
 
 dev:
 	$(PYTHON) -m uvicorn main:app --reload --port 8000
+
+mock-llm:
+	$(PYTHON) mock_servers/llm_server.py
 
 mock-elevenlabs:
 	$(PYTHON) mock_servers/elevenlabs_server.py

@@ -2,7 +2,7 @@
 
 ## Background
 
-This is a simple LLM chat service with a `/chat` endpoint. It supports multiple LLM providers (OpenAI, Together, Anthropic) via a factory pattern.
+This is a simple LLM chat service with a `/chat` endpoint. It supports multiple LLM providers (OpenAI, Together, Anthropic).
 
 ## Your Task
 

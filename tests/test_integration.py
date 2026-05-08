@@ -31,7 +31,7 @@ class TestChatEndpoint:
         )
         assert response.status_code == 200
         data = response.json()
-        assert "Anthropic response" in data["response"]
+        assert "claude-3-haiku" in data["response"]
 
 
 class TestHealthEndpoint:
