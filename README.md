@@ -14,8 +14,10 @@ A **mock ElevenLabs server** is provided so you can make real HTTP calls during 
 
 ```
 ├── main.py                          # FastAPI app with /chat endpoint
-├── llm_service.py                   # LLM provider abstraction (OpenAI, Together, Anthropic)
+├── llm_service.py                   # LLM provider base class
+├── llm_providers.py                 # LLM provider implementations (OpenAI, Together, Anthropic)
 ├── mock_servers/
+│   ├── llm_server.py                # Mock LLM API (runs on localhost:11200)
 │   └── elevenlabs_server.py         # Mock ElevenLabs API (runs on localhost:11100)
 ├── tests/                           # Integration tests
 └── requirements.txt
@@ -26,6 +28,11 @@ A **mock ElevenLabs server** is provided so you can make real HTTP calls during 
 ```bash
 python3 -m venv venv && source venv/bin/activate
 pip install -r requirements.txt
+
+# Start the mock LLM server (in a separate terminal, required for tests)
+make mock-llm
+
+# Run tests
 make test
 
 # Start the mock ElevenLabs server (in a separate terminal)
