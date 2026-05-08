@@ -29,14 +29,14 @@ A **mock ElevenLabs server** is provided so you can make real HTTP calls during 
 python3 -m venv venv && source venv/bin/activate
 pip install -r requirements.txt
 
-# Start the mock LLM server (in a separate terminal, required for tests)
+# Start the mock LLM server (in a separate terminal, required for chat to work)
 make mock-llm
-
-# Run tests
-make test
 
 # Start the mock ElevenLabs server (in a separate terminal)
 make mock-elevenlabs
+
+# Run tests
+make test
 
 # Start the dev server
 make dev
