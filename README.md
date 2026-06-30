@@ -8,6 +8,10 @@ This is a simple LLM chat service with a `/chat` endpoint. It supports multiple 
 
 **Add voice generation to the `/chat` endpoint using ElevenLabs TTS.**
 
+You decide how a request determines whether it gets a text-only response or text
+plus audio — there's no single right answer. A text response should always be
+returned.
+
 A **mock ElevenLabs server** is provided so you can make real HTTP calls during development.
 
 ## Current Architecture
@@ -29,17 +33,21 @@ A **mock ElevenLabs server** is provided so you can make real HTTP calls during 
 python3 -m venv venv && source venv/bin/activate
 pip install -r requirements.txt
 
-# Start the mock LLM server (in a separate terminal, required for chat to work)
+# Start the mock LLM server (in a separate terminal).
+# Required for both `make test` and the /chat endpoint to work — start this first.
 make mock-llm
 
 # Start the mock ElevenLabs server (in a separate terminal)
 make mock-elevenlabs
 
-# Run tests
+# Run tests (requires the mock LLM server above to be running)
 make test
 
 # Start the dev server
 make dev
+
+# Send a sample request to the running /chat endpoint
+make curl-test
 ```
 
 ---
@@ -99,6 +107,15 @@ HTTP 401  - Invalid API key
 HTTP 429  - Rate limit exceeded
 HTTP 400  - Invalid request (empty text, invalid voice_id, etc.)
 ```
+
+The mock server reproduces each of these deterministically so you can test your
+error handling:
+
+| Status | How to trigger against the mock |
+|--------|----------------------------------|
+| `401` | Omit the `xi-api-key` header, or send the sentinel key `"invalid-key"` |
+| `429` | Use the sentinel voice_id `"rate-limited-voice"` |
+| `400` | Send empty `text` |
 
 ---
 
